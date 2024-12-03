@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator wartości</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator wartości</h1>
+    <div class="input-group">
+        <label for="input1">Liczba 1:</label>
+        <input type="number" id="input1" value="0">
+    </div>
+    <div class="input-group">
+        <label for="input2">Liczba 2:</label>
+        <input type="number" id="input2" value="0">
+    </div>
+    <div class="input-group">
+        <label for="input3">Liczba 3:</label>
+        <input type="number" id="input3" value="0">
+    </div>
+    <div class="input-group">
+        <label for="input4">Liczba 4:</label>
+        <input type="number" id="input4" value="0">
+    </div>
+
+    <div class="results">
+        <p>Suma: <span id="sum">0</span></p>
+        <p>Średnia: <span id="average">0</span></p>
+        <p>Min: <span id="min">0</span></p>
+        <p>Max: <span id="max">0</span></p>
+    </div>
+
+    <script>
+        function updateValues() {
+            const inputs = Array.from(document.querySelectorAll('input[type="number"]'));
+            const values = inputs.map(input => parseFloat(input.value) || 0);
+
+            const sum = values.reduce((acc, curr) => acc + curr, 0);
+            const average = sum / values.length;
+            const min = Math.min(...values);
+            const max = Math.max(...values);
+
+            document.getElementById('sum').textContent = sum.toFixed(2);
+            document.getElementById('average').textContent = average.toFixed(2);
+            document.getElementById('min').textContent = min.toFixed(2);
+            document.getElementById('max').textContent = max.toFixed(2);
+        }
+
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', updateValues);
+        });
+
+        // Inicjalne wyliczenie
+        updateValues();
+    </script>
+</body>
+</html>
